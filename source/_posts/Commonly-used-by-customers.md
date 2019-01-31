@@ -1,5 +1,5 @@
 ---
-title: Commonly-used-by-customers
+title: 自己常用的一些mysql
 date: 2019-01-31 14:18:34
 categories: "mysql"
 tags: "mysql"
@@ -15,16 +15,16 @@ update jw_items AS jw set jw.chupiao_top = unix_timestamp(jw.quchendate) WHERE (
 END
 ```
 
-### 2、定时检测付款状态把未按设置时间段的订单重置
+## 2、定时检测付款状态把未按设置时间段的订单重置
 ```
 update jw_orders od,jw_config conf,jw_items jw set od.paystate = 3 WHERE (from_unixtime(od.ordertime + conf.order_keeptime*3600) <= NOW()) AND (od.ordertime > 0) AND (jw.id = od.itemsid) AND (od.paystate IN (1,2))
 ```
 
-### 3、把相关字段日期字符转unix时间戳
+## 3、把相关字段日期字符转unix时间戳
 ```
 unix_timestamp(xxx_field)
 ```
-### 4、把字符串日期格式加一天并更新
+## 4、把字符串日期格式加一天并更新
 ```
 UPDATE tables SET field = date_format(DATE_ADD(STR_TO_DATE(field,'%Y/%c/%e'),INTERVAL 1 DAY),'%Y/%c/%e') WHERE id = xxx
 ```
